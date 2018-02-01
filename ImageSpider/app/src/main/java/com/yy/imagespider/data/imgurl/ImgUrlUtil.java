@@ -1,23 +1,24 @@
-package com.yy.imagespider.data;
+package com.yy.imagespider.data.imgurl;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.yy.imagespider.util.GlobalConfig;
 import com.yy.imagespider.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class ImageUrlHelper {
-    private static final String TAG = "ImageUrlHelper";
-
+public class ImgUrlUtil {
+    public static final String TAG = "ImgUrlUtil";
     private final  static String URL_FIRSET_SECTION = "http://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=%E7%BE%8E%E5%A5%B3&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=&z=&ic=&word=%E7%BE%8E%E5%A5%B3&s=&se=&tab=&width=&height=&face=&istype=&qc=&nc=1&fr=&cg=girl&pn=";
     private final  static String URL_MIDDLE_SECTION = "&rn=30&gsm=5a&";
 
@@ -25,61 +26,32 @@ public class ImageUrlHelper {
 
     /**
      *  生成获取图片url列表的链接
+     * @return
      */
-    public static String generageNewURL(){
+    private static String generageNewURL(){
         return URL_FIRSET_SECTION + mPageNumber++ + URL_MIDDLE_SECTION + System.currentTimeMillis() + "=";
     }
 
+    public static void getImagesUrl(final OnUrlGetListener listener){
+        RequestQueue requestQueue = Volley.newRequestQueue(GlobalConfig.getInstance().getContext());
+        requestQueue.add(new StringRequest(generageNewURL(), new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+                List<String> resutl = getImagesUrl(response);
+                listener.onGetUrl(resutl);
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onGetUrl(Collections.<String>emptyList());
+            }
+        }));
+    }
 
-//    public static String getJSONFromURL(String imgURL){
-//        HttpURLConnection conn = null; //连接对象
-//        InputStream is = null;
-//        String resultData = "";
-//        try {
-//            Log.d(TAG,"getJSONFromURL:" + imgURL);
-//
-//            URL url = new URL(imgURL); //URL对象
-//            conn = (HttpURLConnection) url.openConnection(); //使用URL打开一个链接
-//            conn.setDoInput(true); //允许输入流，即允许下载
-//            conn.setUseCaches(true); //不使用缓冲
-//            conn.setRequestMethod("GET"); //使用get请求
-//            is = conn.getInputStream();   //获取输入流，此时才真正建立链接
-//
-//            Log.d(TAG,"ResponseCode:" + conn.getResponseCode());
-//
-//            InputStreamReader isr = new InputStreamReader(is);
-//            BufferedReader bufferReader = new BufferedReader(isr);
-//            String inputLine = "";
-//            while ((inputLine = bufferReader.readLine()) != null) {
-//                resultData += inputLine + "\n";
-//            }
-//
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (is != null) {
-//                try {
-//                    is.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            if (conn != null) {
-//                conn.disconnect();
-//            }
-//        }
-//        return resultData;
-//
-//    }
-
-
-    public static List<String> getImagesUrl(String json){
+    private static List<String> getImagesUrl(String json){
         ArrayList<String> result = new ArrayList<String>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-            android.util.Log.d(TAG,"" + json);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             for (int i = 0 ; i < jsonArray.length() ; i++){
                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
@@ -95,7 +67,6 @@ public class ImageUrlHelper {
                     if (hdImgURl != null && !hdImgURl.equals("")){
                         //先用更高清的图片
                         imgURL = hdImgURl;
-                        android.util.Log.d(TAG,"get Largest Imag:" + hdImgURl);
                     }
                 }
 
