@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
     <activity
-        android:name="com.yy.goodpicxiuxiu.gallery.GelleryActivity"
+        android:name="com.yy.goodpicxiuxiu.gallery.GridActivity"
         android:label="@string/title_activity_main"
         android:theme="@style/AppTheme.NoActionBar" >
         <intent-filter>

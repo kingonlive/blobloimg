@@ -1,7 +1,5 @@
 package com.yy.goodpicxiuxiu.data.imgurl;
 
-import java.util.List;
-
 /**
  * 获取图片ＵＲＬ的接口
  */
@@ -10,7 +8,7 @@ public interface IImageUrlSource {
     /**
      * 最大图片数
      */
-    int MAX_IMGES = 2048;
+    int MAX_IMGES = 20480;
 
     /**
      *
@@ -19,5 +17,5 @@ public interface IImageUrlSource {
      * @param count 返回图片的总数
      * @param listener 接受请求结果的接口
      */
-    void getImageUrl(int position, int count, OnUrlGetListener listener);
+    void getImageUrl(int position, int count, IGetURLListener listener);
 }

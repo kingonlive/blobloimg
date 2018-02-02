@@ -4,27 +4,28 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.yy.goodpicxiuxiu.GlobalConfig;
 import com.yy.goodpicxiuxiu.R;
 
 
-public class GelleryActivity extends AppCompatActivity {
+public class GridActivity extends AppCompatActivity {
 
-    private GelleryContract.Presenter mPresenter;
-    private GelleryContract.View mView;
+    private GridContract.Presenter mPresenter;
+    private GridContract.View mView;
 
     private void initUI(){
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        GelleryFragment gelleryFragment = (GelleryFragment) getSupportFragmentManager().findFragmentById(R.id.contentframe);
+        toolbar.setNavigationIcon(R.mipmap.ic_launcher);
+
+        GridFragment gelleryFragment = (GridFragment) getSupportFragmentManager().findFragmentById(R.id.contentframe);
 
         if (gelleryFragment == null) {
             // Create the fragment
-            gelleryFragment = new GelleryFragment();
+            gelleryFragment = new GridFragment();
 
             //Add the fragment
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -33,13 +34,14 @@ public class GelleryActivity extends AppCompatActivity {
         }
 
         mView = gelleryFragment;
-        mPresenter = new GelleryPresenter(gelleryFragment);
+        mPresenter = new GridPresenter(gelleryFragment);
         mView.setPresenter(mPresenter);
         mPresenter.start();
     }
 
     private void initEnv(){
         GlobalConfig.getInstance().setContext(this);
+        GlobalConfig.getInstance().calculateWindowSize(getWindow());
     }
 
     @Override

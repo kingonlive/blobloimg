@@ -3,14 +3,12 @@ package com.yy.goodpicxiuxiu.data.imgurl;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.yy.goodpicxiuxiu.GlobalConfig;
 import com.yy.goodpicxiuxiu.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -32,7 +30,9 @@ public class ImgUrlUtil {
         return URL_FIRSET_SECTION + mPageNumber++ + URL_MIDDLE_SECTION + System.currentTimeMillis() + "=";
     }
 
-    public static void getImagesUrl(final OnUrlGetListener listener){
+    public static void getImagesUrl(final IGetURLListener listener){
+        Log.d(TAG, "getImagesUrl");
+
         RequestQueue requestQueue = Volley.newRequestQueue(GlobalConfig.getInstance().getContext());
         requestQueue.add(new StringRequest(generageNewURL(), new Response.Listener<String>(){
             @Override

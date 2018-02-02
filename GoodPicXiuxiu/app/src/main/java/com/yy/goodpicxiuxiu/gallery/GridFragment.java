@@ -12,17 +12,21 @@ import android.view.ViewGroup;
 
 import com.yy.goodpicxiuxiu.R;
 import com.yy.goodpicxiuxiu.gallery.view.GelleryAdapter;
+import com.yy.goodpicxiuxiu.util.Log;
 
 import java.util.List;
 
-public class GelleryFragment extends Fragment implements GelleryContract.View {
+public class GridFragment extends Fragment implements GridContract.View {
+    public static final String TAG = "GridFragment";
+    /** 网格视图的列数 **/
+    public static final int COLUMN_NUM = 2;
 
     private RecyclerView mGridView;
     private GelleryAdapter mGelleryAdapter;
-    private GelleryContract.Presenter mPresenter;
-
+    private GridContract.Presenter mPresenter;
+    private GridLayoutManager mLayoutManager;
     @Override
-    public void setPresenter(GelleryContract.Presenter presenter) {
+    public void setPresenter(GridContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -40,7 +44,10 @@ public class GelleryFragment extends Fragment implements GelleryContract.View {
         mGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                mPresenter.onScrollStateChanged(newState);
+                int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
+                Log.d(TAG, "onScrollStateChanged newState:" + newState + ",lastVisibleItemPosition:" + lastVisibleItemPosition);
+
+                mPresenter.onScrollStateChanged(newState, mLayoutManager.findLastVisibleItemPosition());
             }
 
             @Override
@@ -50,10 +57,8 @@ public class GelleryFragment extends Fragment implements GelleryContract.View {
 
         mGelleryAdapter = new GelleryAdapter();
         mGridView.setAdapter(mGelleryAdapter);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        mGridView.setLayoutManager(layoutManager);
-
-        mPresenter.start();
+        mLayoutManager = new GridLayoutManager(getContext(), COLUMN_NUM);
+        mGridView.setLayoutManager(mLayoutManager);
         return root;
     }
 }

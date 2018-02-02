@@ -1,8 +1,7 @@
 package com.yy.goodpicxiuxiu.data.imgurl;
 
 
-import java.security.PublicKey;
-import java.util.List;
+import com.yy.goodpicxiuxiu.util.Log;
 
 public class ImageUrlFetcher implements IImageUrlSource{
     /**
@@ -31,7 +30,9 @@ public class ImageUrlFetcher implements IImageUrlSource{
     }
 
     @Override
-    public void getImageUrl(int position, int count, OnUrlGetListener listener) {
+    public void getImageUrl(int position, int count, IGetURLListener listener) {
+
+        Log.d(ImgUrlUtil.TAG, "ImageUrlFetcher.getImageUrl position:" + position + ",count:"  + count);
         mDataSource.getImageUrl(position, count, listener);
     }
 }
