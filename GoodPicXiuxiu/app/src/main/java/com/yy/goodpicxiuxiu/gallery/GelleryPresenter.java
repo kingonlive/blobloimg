@@ -18,7 +18,7 @@ public class GelleryPresenter implements GelleryContract.Presenter, OnUrlGetList
 
     @Override
     public void start() {
-        mImageUrlFetcher.getImageUrl(0, 100, this);
+        mImageUrlFetcher.getImageUrl(0, 1000, this);
     }
 
     @Override

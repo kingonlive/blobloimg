@@ -50,7 +50,7 @@ public class GelleryFragment extends Fragment implements GelleryContract.View {
 
         mGelleryAdapter = new GelleryAdapter();
         mGridView.setAdapter(mGelleryAdapter);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         mGridView.setLayoutManager(layoutManager);
 
         mPresenter.start();

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ImgUrlUtil {
     public static final String TAG = "ImgUrlUtil";
-    private final  static String URL_FIRSET_SECTION = "http://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=%E7%BE%8E%E5%A5%B3&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=&z=&ic=&word=%E7%BE%8E%E5%A5%B3&s=&se=&tab=&width=&height=&face=&istype=&qc=&nc=1&fr=&cg=girl&pn=";
+    private final  static String URL_FIRSET_SECTION = "http://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=%E7%BE%8E%E5%A5%B3&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=&z=&ic=&word=%E7%8B%AE%E5%AD%90&s=&se=&tab=&width=&height=&face=&istype=&qc=&nc=1&fr=&cg=girl&pn=";
     private final  static String URL_MIDDLE_SECTION = "&rn=30&gsm=5a&";
 
     private static int mPageNumber = 1;

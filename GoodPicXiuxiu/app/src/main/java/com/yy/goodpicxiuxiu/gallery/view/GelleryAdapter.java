@@ -38,11 +38,10 @@ public class GelleryAdapter extends RecyclerView.Adapter {
         int width = ((Activity)GlobalConfig.getInstance().getContext()).getWindow().getDecorView().getWidth();
         String imgUrl = mDatas.get(position);
         holder.itemView.setBackgroundColor(Color.BLUE);
-        Picasso.with(GlobalConfig.getInstance().getContext()).
-                load(imgUrl).
-//                resize(width/3, width/3).
-//                centerInside().
-                into((ImageView) holder.itemView);
+
+        ((ImageView) holder.itemView).setLayoutParams(new ViewGroup.LayoutParams(width/2, width/2));
+        Picasso.with(GlobalConfig.getInstance().getContext()).load(imgUrl).resize(width/2,width/2).centerCrop().into((ImageView) holder.itemView);
+//        Picasso.with(GlobalConfig.getInstance().getContext()).load(imgUrl).resize(width/2,width/2).centerInside().into((ImageView) holder.itemView);
     }
 
     @Override
