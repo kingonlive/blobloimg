@@ -1,4 +1,4 @@
-package com.yy.goodpicxiuxiu.gallery.view;
+package com.yy.goodpicxiuxiu.gallery;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.yy.goodpicxiuxiu.GlobalConfig;
-import com.yy.goodpicxiuxiu.util.Log;
+import com.yy.goodpicxiuxiu.widget.PressiveImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,23 +19,23 @@ public class GelleryAdapter extends RecyclerView.Adapter {
     private List<String> mDatas = new ArrayList<String>();
 
     private class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView view;
+        PressiveImageView view;
         ViewHolder(View itemView) {
             super(itemView);
-            view = (ImageView) itemView;
+            view = (PressiveImageView) itemView;
         }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = new ViewHolder(new ImageView(parent.getContext()));
+        ViewHolder viewHolder = new ViewHolder(new PressiveImageView(parent.getContext()));
         return viewHolder;
     }
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int width = ((Activity)GlobalConfig.getInstance().getContext()).getWindow().getDecorView().getWidth();
+        int width = GlobalConfig.getInstance().getWindowWidth();
         String imgUrl = mDatas.get(position);
         holder.itemView.setBackgroundColor(Color.BLUE);
 

@@ -1,5 +1,6 @@
 package com.yy.goodpicxiuxiu.gallery;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,13 +12,13 @@ import android.view.ViewGroup;
 
 
 import com.yy.goodpicxiuxiu.R;
-import com.yy.goodpicxiuxiu.gallery.view.GelleryAdapter;
 import com.yy.goodpicxiuxiu.util.Log;
 
 import java.util.List;
 
 public class GridFragment extends Fragment implements GridContract.View {
     public static final String TAG = "GridFragment";
+    
     /** 网格视图的列数 **/
     public static final int COLUMN_NUM = 2;
 
@@ -41,6 +42,7 @@ public class GridFragment extends Fragment implements GridContract.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
        View root = inflater.inflate(R.layout.gellery_main, container, false);
         mGridView = (RecyclerView) root.findViewById(R.id.recycleview);
+        mGridView.setBackgroundColor(Color.BLACK);
         mGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
